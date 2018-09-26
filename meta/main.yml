@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Karol Ossowski
-  description: Ansible to manage jBoss/Wildfly AS
+  description: Ansible role to manage jBoss/Wildfly AS
 
   license: BSD 
   min_ansible_version: 2.2
