@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: wildfly
+      wildfly_install: yes
+      wildfly_user: wildfly
+      wildfly_deployments: ./molecule/default/wildfly/deployments
+      wildfly_configuration: ./molecule/default/wildfly/configuration

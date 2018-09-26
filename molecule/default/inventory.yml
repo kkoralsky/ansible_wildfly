@@ -1,0 +1,9 @@
+---
+all:
+  hosts:
+    debian-buster:
+      ansible_host: debian-buster
+      ansible_connection: docker
+    debian-stretch:
+      ansible_host: debian-stretch
+      ansible_connection: docker
