@@ -12,5 +12,5 @@ wildfly_download_url: 'http://download.jboss.org/wildfly/{{ wildfly_version }}/w
 wildfly_jdk_version: 10
 wildfly_install: yes
 
-wildfly_deployments: '{{ lookup("env", "PWD") }}wildfly/deployments'
-wildfly_configuration: '{{ lookup("env", "PWD") }}wildfly/configuration'
+wildfly_deployments: '{{ lookup("env", "PWD") }}/wildfly/deployments'
+wildfly_configuration: '{{ lookup("env", "PWD") }}/wildfly/configuration'
