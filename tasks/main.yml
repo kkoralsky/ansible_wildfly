@@ -1,0 +1,36 @@
+---
+- name: create user running & managing AS
+  user: name='{{ wildfly_user }}' home='{{ wildfly_dest_base }}'
+  become: true
+  tags: superuser
+- name: authorize current user to login as wildfly_user
+  authorized_key: key='{{ ansible_ssh_host_key_rsa_public }}'
+  when: ansible_ssh_host_key_rsa_public is defined
+  become: true
+  tags: superuser
+- name: ensure dest dir is present
+  file: name='{{ wildfly_dest }}' recurse=yes state=directory
+        owner='{{ wildfly_user }}' group='{{ wildfly_user }}'
+  become: true
+  tags: superuser
+
+- name: install wildfly AS
+  import_tasks: install.yml
+  tags: superuser
+  become: true
+  when: wildfly_install|bool
+
+- name: setup systemd service
+  template: src=service.j2 dest=/etc/systemd/system/wildfly.service
+  become: true
+  tags: superuser
+  notify: systemd daemon-reload
+- name: fill environment variables
+  template: src=environment.j2 dest='{{ wildfly_env_file }}'
+            owner='{{ wildfly_user }}' group='{{ wildfly_user }}'
+  notify: service reload
+
+- name: upgrade wildfly deployments
+  import_tasks: upgrade.yml
+  remote_user: '{{ wildfly_user }}'
+  tags: upgrade

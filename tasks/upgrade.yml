@@ -1,0 +1,28 @@
+- name: copy deployments
+  copy: src={{ item }} dest='{{ wildfly_deployments_folder }}'
+  with_fileglob: '{{ wildfly_deployments }}/*.?ar'
+
+- name: fill deplyment configuration files
+  template: src='{{ item }}' dest='{{ wildfly_deployments_folder }}'
+  with_fileglob: '{{ wildfly_deployments }}/*.j2'
+
+- name: copy configuration files
+  copy: src='{{ item }}' dest='{{ wildfly_configuration_folder }}'
+  with_fileglob: '{{ wildfly_configuration }}/*'
+  when: not item.endswith('.j2')
+
+- name: fill configuration files
+  template: src='{{ item }}' dest='{{ wildfly_configuration_folder }}'
+  with_fileglob: '{{ wildfly_configuration }}/*.j2' 
+
+- name: get all deployed apps
+  find: paths='{{ wildfly_deployments_folder }}' patterns='*.?ar'
+  register: deployments
+  tags: debug
+
+- name: rm deployments missing locally
+  file: name='{{ item.path }}' state=absent
+  # debug: msg='{{ wildfly_deployments }}/{{ item.path|basename }}'
+  when: 'wildfly_deployments is exists and (wildfly_deployments + "/" + item.path|basename) is not exists'
+  with_items: '{{ deployments.files }}'
+  tags: debug

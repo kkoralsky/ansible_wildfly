@@ -1,0 +1,20 @@
+---
+- name: use 7 JDK version
+  set_fact: wildfly_jdk_version=7
+  when: ansible_distribution_release in ["wheezy", "trusty"]
+- name: use 8 JDK version
+  set_fact: wildfly_jdk_version=8
+  when: ansible_distribution_release in ["jessie", "stretch"]
+- name: use 9 JDK version
+  set_fact: wildfly_jdk_version=9
+  when: ansible_distribution_release in ["xenial", "zesty", "artful", "bionic"]
+- name: install openjdk
+  apt: pkg='openjdk-{{ wildfly_jdk_version }}-jdk'
+
+- name: install unzip
+  apt: name=unzip
+
+- name: download and uncompress wildfly from official repository
+  unarchive: src='{{ wildfly_download_url }}' dest='{{ wildfly_dest }}'
+             creates='{{ wildfly_dest_folder }}' remote_src=yes
+             owner={{ wildfly_user }} group='{{ wildfly_user }}'

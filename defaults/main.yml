@@ -1,0 +1,16 @@
+---
+wildfly_user: '{{ ansible_user|default(ansible_user_id) }}'
+
+wildfly_dest_base: '/home/{{ wildfly_user }}'
+wildfly_dest: '{{ wildfly_dest_base }}/wildfly_as'
+
+# http://download.jboss.org/wildfly/13.0.0.Final/wildfly-13.0.0.Final.zip
+
+wildfly_version: 13.0.0.Final
+wildfly_download_url: 'http://download.jboss.org/wildfly/{{ wildfly_version }}/wildfly-{{ wildfly_version }}.zip'
+
+wildfly_jdk_version: 10
+wildfly_install: yes
+
+wildfly_deployments: '{{ lookup("env", "PWD") }}wildfly/deployments'
+wildfly_configuration: '{{ lookup("env", "PWD") }}wildfly/configuration'

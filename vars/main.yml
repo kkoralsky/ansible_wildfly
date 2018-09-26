@@ -1,0 +1,6 @@
+---
+wildfly_pid_file:  '{{ wildfly_dest }}/wildfly.pid'
+wildfly_env_file: '{{ wildfly_dest }}/wildfly.env'
+wildfly_dest_folder: '{{ wildfly_dest }}/wildfly-{{ wildfly_version }}'
+wildfly_deployments_folder: '{{ wildfly_dest_folder }}/standalone/deployments'
+wildfly_configuration_folder: '{{ wildfly_dest_folder }}/standalone/configuration'
