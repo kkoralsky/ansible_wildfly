@@ -28,6 +28,8 @@
 - name: fill environment variables
   template: src=environment.j2 dest='{{ wildfly_env_file }}'
             owner='{{ wildfly_user }}' group='{{ wildfly_user }}'
+  become: true
+  tags: superuser
   notify: service reload
 
 - name: upgrade wildfly deployments
