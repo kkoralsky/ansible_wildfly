@@ -1,5 +1,6 @@
 ---
 wildfly_user: '{{ ansible_user|default(ansible_user_id) }}'
+wildfly_password: supersecret
 
 wildfly_dest_base: '/home/{{ wildfly_user }}'
 wildfly_dest: '{{ wildfly_dest_base }}/wildfly_as'

@@ -12,6 +12,7 @@ Role Variables
 - `wildfly_user` - user running AS, as well as one authorized to manage & configure
   the server; defaults to user that runs the playbook; if user does not exist,
   it will be created
+- `wildfly_password` - password used in web management console; (use vault to make it encrypted!)
 - `wildfly_install` - whether download & install the server (defualt: yes)
 - `wildfly_version` - wildfly version to download from official project website 
 - `wildfly_download_url` - specify own download url of ZIP bundle (we're using official link sheme by default) 

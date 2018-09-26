@@ -1,3 +1,6 @@
+- name: add/update management user for web console
+  command: '{{ wildfly_add_user_command }} -s -e -u {{ wildfly_user }} -p {{ wildfly_password }}'
+
 - name: copy deployments
   copy: src={{ item }} dest='{{ wildfly_deployments_folder }}'
   with_fileglob: '{{ wildfly_deployments }}/*.?ar'
