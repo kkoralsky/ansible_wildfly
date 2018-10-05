@@ -6,7 +6,7 @@
   with_fileglob: '{{ wildfly_deployments }}/*.?ar'
 
 - name: fill deplyment configuration files
-  template: src='{{ item }}' dest='{{ wildfly_deployments_folder }}'
+  template: src='{{ item }}' dest='{{ wildfly_deployments_folder }}/{{ item|basename|splitext|first }}'
   with_fileglob: '{{ wildfly_deployments }}/*.j2'
 
 - name: copy configuration files
@@ -15,7 +15,7 @@
   when: not item.endswith('.j2')
 
 - name: fill configuration files
-  template: src='{{ item }}' dest='{{ wildfly_configuration_folder }}'
+  template: src='{{ item }}' dest='{{ wildfly_configuration_folder }}/{{ item|basename|splitext|first }}'
   with_fileglob: '{{ wildfly_configuration }}/*.j2' 
 
 - name: get all deployed apps
