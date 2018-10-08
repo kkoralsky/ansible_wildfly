@@ -3,11 +3,6 @@
   user: name='{{ wildfly_user }}' home='{{ wildfly_dest_base }}'
   become: true
   tags: superuser
-- name: authorize current user to login as wildfly_user
-  authorized_key: key='{{ ansible_ssh_host_key_rsa_public }}'
-  when: ansible_ssh_host_key_rsa_public is defined
-  become: true
-  tags: superuser
 - name: ensure dest dir is present
   file: name='{{ wildfly_dest }}' recurse=yes state=directory
         owner='{{ wildfly_user }}' group='{{ wildfly_user }}'
