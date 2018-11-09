@@ -4,12 +4,10 @@ After=syslog.target network-online.target
 Before=httpd.service
 
 [Service]
-Type=forking
 User={{ wildfly_user }}
 EnvironmentFile={{ wildfly_env_file }}
 WorkingDirectory={{ wildfly_dest }}
 ExecStart={{ wildfly_dest_folder }}/bin/standalone.sh
-PIDFile={{ wildfly_pid_file }}
 
 [Install]
 WantedBy=multi-user.target
