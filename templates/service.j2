@@ -7,6 +7,7 @@ Before=httpd.service
 Type=forking
 User={{ wildfly_user }}
 EnvironmentFile={{ wildfly_env_file }}
+WorkingDirectory={{ wildfly_dest }}
 ExecStart={{ wildfly_dest_folder }}/bin/standalone.sh
 PIDFile={{ wildfly_pid_file }}
 
